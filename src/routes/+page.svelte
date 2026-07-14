@@ -9,7 +9,12 @@
 
 	onMount(async () => {
 		app = new Application()
-		await app.init({ background: COLORS.TAN, resizeTo: window, antialias: true })
+		await app.init({
+			background: COLORS.TAN,
+			resizeTo: window,
+			antialias: true,
+			autoDensity: true,
+		})
 		mainDiv.appendChild(app.canvas)
 
 		boxSprite = new Sprite(Texture.WHITE)
@@ -28,7 +33,8 @@
 	})
 
 	function onResize() {
-		boxSprite.position.set(app.canvas.width / 2, app.canvas.height / 2)
+		boxSprite.position.set(app.renderer.width / 2, app.renderer.height / 2)
+		app.renderer.resolution = window.devicePixelRatio
 	}
 </script>
 

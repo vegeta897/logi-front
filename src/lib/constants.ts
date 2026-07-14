@@ -3,5 +3,5 @@ export const COLORS = {
 	TAN: '#f5e9bf',
 	GREEN: '#788374',
 	RED: '#aa644d',
-	BLACK: '#372a39'
-};
+	BLACK: '#372a39',
+}
