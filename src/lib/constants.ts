@@ -5,3 +5,5 @@ export const COLORS = {
 	RED: '#aa644d',
 	BLACK: '#372a39',
 }
+
+export const TIMESTEP = (1 / 60) * 1000 // Milliseconds per frame

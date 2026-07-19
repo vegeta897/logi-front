@@ -1,16 +1,19 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { initPixi, resizePixi, pixiIsReady, destroyPixi } from '$lib/pixi'
+	import { initPixi, resizePixi, getPixiApp, destroyPixi } from '$lib/pixi'
+	import { initLoop } from '$lib/game'
 
 	let mainDiv: HTMLDivElement
 
 	onMount(() => {
-		initPixi(mainDiv)
+		initPixi(mainDiv).then(() => {
+			initLoop()
+		})
 		return destroyPixi
 	})
 
 	function onResize() {
-		if (pixiIsReady()) resizePixi()
+		if (getPixiApp()) resizePixi()
 	}
 </script>
 
