@@ -1,0 +1,24 @@
+export function randomChance(chance: number = 0.5) {
+	return Math.random() < chance
+}
+export function randomFloat(min: number, max: number, rng = Math.random) {
+	return min + rng() * (max - min)
+}
+export function randomInt(min: number, max: number, rng = Math.random) {
+	return min + Math.floor(rng() * (max - min + 1))
+}
+export function randomElement<T>(arr: T[], rng = Math.random): T {
+	return arr[Math.floor(rng() * arr.length)]
+}
+// Based on https://github.com/ChrisCavs/aimless.js/blob/main/src/weighted.ts
+export function randomElementWeighted<T>(arr: T[], weights: number[], rng = Math.random) {
+	if (arr.length === 1) return arr[0]
+	const totalWeight = weights.reduce((sum, weight) => sum + weight, 0)
+	const random = randomFloat(0, totalWeight, rng)
+	let cumulativeWeight = 0
+	for (let i = 0; i < arr.length; i++) {
+		cumulativeWeight += weights[i]
+		if (random < cumulativeWeight) return arr[i]
+	}
+	return arr[0] // Should never reach here, but just in case
+}

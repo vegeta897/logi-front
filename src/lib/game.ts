@@ -1,24 +1,24 @@
-import { createBox } from './box'
 import { TIMESTEP } from './constants'
 import { getPixiApp } from './pixi'
+import { createHub, renderHub, updateHub } from './hub'
 
 let delta = 0
 
 export function initLoop() {
 	const pixiApp = getPixiApp()
 
-	const box = createBox()
-	pixiApp.stage.addChild(box.sprite)
-	box.sprite.position.set(pixiApp.renderer.width / 2, pixiApp.renderer.height / 2)
+	const hub = createHub()
+	pixiApp.stage.addChild(hub.container)
+	hub.container.position.set(pixiApp.renderer.width / 2, pixiApp.renderer.height / 2)
 
 	pixiApp.ticker.add((time) => {
 		let renderDelta = time.elapsedMS
 		if (renderDelta > 250) renderDelta = 250 // Slow down if lagging too far
 		delta += renderDelta
 		while (delta >= TIMESTEP) {
-			box.updateLogic()
+			updateHub(hub)
 			delta -= TIMESTEP
 		}
-		box.updateSprite()
+		renderHub(hub)
 	})
 }
